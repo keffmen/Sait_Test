@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head>
+    <title>Сайт с подключением к базе данных</title>
+</head>
+<body>
+    <?php
+    // Параметры подключения к базе данных
+    $servername = "sql.freedb.tech:3306";
+    $username = "freedb_Sait_user";
+    $password = "?Q$PSsFv%6*wT4q";
+    $dbname = "freedb_Sait_ruletka";
+
+    // Установка соединения с базой данных
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Проверка соединения
+    if ($conn->connect_error) {
+        die("Ошибка подключения к базе данных: " . $conn->connect_error);
+    }
+
+    // Запрос на выборку данных из базы данных
+    $sql = "SELECT * FROM таблица";
+    $result = $conn->query($sql);
+
+    // Проверка наличия данных
+    if ($result->num_rows > 0) {
+        // Вывод данных
+        while($row = $result->fetch_assoc()) {
+            echo "ID: " . $row["id"]. " - Имя: " . $row["имя"]. " - Email: " . $row["email"]. "<br>";
+        }
+    } else {
+        echo "Нет данных для отображения";
+    }
+
+    // Закрытие соединения с базой данных
+    $conn->close();
+    ?>
+</body>
+</html>
